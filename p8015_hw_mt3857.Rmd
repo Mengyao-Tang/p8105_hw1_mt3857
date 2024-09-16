@@ -16,7 +16,11 @@ This is an R Markdown document. Markdown is a simple formatting syntax for autho
 When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
 ```{r cars}
-summary(cars)
+#Use the code below to download the a package containing the penguins dataset:
+#install.packages("palmerpenguins")
+#load the penguins dataset
+data("penguins", package = "palmerpenguins")
+
 ```
 
 ## Including Plots
@@ -24,7 +28,14 @@ summary(cars)
 You can also embed plots, for example:
 
 ```{r pressure, echo=FALSE}
-plot(pressure)
+library(ggplot2)
+#Make a scatterplot of flipper_length_mm (y) vs bill_length_mm (x); color points using the species variable (adding color = ... inside of aes in your ggplot code should help
+ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = species)) +
+  geom_point() +
+  labs(title = "Flipper Length vs Bill Length", x = "Bill Length (mm)", y = "Flipper Length (mm)")
+
+ggsave("scatterplot_penguins.png")
+
 ```
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
